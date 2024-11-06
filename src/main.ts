@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
+import { envs } from './config';
 
 async function bootstrap() {
   const logger = new Logger('Main Gateway');
@@ -12,8 +13,8 @@ async function bootstrap() {
     new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }),
   );
 
-  await app.listen(process.env.PORT ?? 3002);
+  await app.listen(envs.port);
 
-  logger.log('Gateway running on port 3002');
+  logger.log(`Gateway running on port ${envs.port}`);
 }
 bootstrap();
